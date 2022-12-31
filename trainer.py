@@ -14,7 +14,7 @@ from models import Classifier
 from utils import timeSince, create_dir
 torch.manual_seed(3407)
 
-"""超参数部分"""
+"""超参数"""
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('--bs', default=16, type=int, help='在train集上的batchSize')
 parser.add_argument('--lr', default=1e-4, type=float, help='')
@@ -79,7 +79,7 @@ class ClassifierTrainer(object):
             loss.backward()
             # 更新参数
             self.optimizer.step()
-            # 记录loss
+            # 记录损失
             if (batch_idx + 1) % (len(self.train_dataloader) // 3) == 0:
                 # 终端输出
                 print("Epoch: %d/%d,batch_idx:%d,time:%s,Loss:%.5f" % (
@@ -102,7 +102,6 @@ class ClassifierTrainer(object):
 
     def start(self, model_path=None):
         best_acc = 0
-        # 如果有参数文件
         if model_path is not None:
             self.model.load_state_dict(torch.load(model_path))
             print("加载参数文件: {}".format(model_path))
@@ -154,7 +153,7 @@ class ClassifierTrainer(object):
 
 
 trainer = ClassifierTrainer()
-trainer.start()
+trainer.start()  # 开始训练
 
 # 在测试集上测试
 # path = 'checkpoints/resnet18/1.0000.pth'
