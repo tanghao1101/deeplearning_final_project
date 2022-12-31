@@ -15,7 +15,6 @@ class BitmojiDataset(data.Dataset):
         super(BitmojiDataset, self).__init__()
         data = pd.read_csv('datasets/train.csv')
         trainData, testData = train_test_split(data, test_size=0.2, random_state=3407)
-        # trainData, testData = data, data
         self.image_root = 'datasets/trainimages'
         self.dataset = trainData if mode == 'train' else testData
         self.transform = set_transform()
